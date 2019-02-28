@@ -1,7 +1,7 @@
 package org.reindexer.examples;
 
-import org.reindexer.connector.options.DefaultNamespaceOptions;
 import org.reindexer.connector.Reindexer;
+import org.reindexer.connector.options.NamespaceOptions;
 import org.reindexer.examples.model.Item;
 
 import java.util.HashSet;
@@ -24,7 +24,7 @@ public class Example {
         //serverConfig := config.DefaultServerConfig()
         //Reindexer db = Reindexer.newReindexer("builtinserver://testdb");
 
-        db.openNamespace("items", new DefaultNamespaceOptions(), Item.class);
+        db.openNamespace("items", NamespaceOptions.defaultOptions(), Item.class);
 
 
         // Generate dataset
