@@ -12,17 +12,17 @@ public class Example {
     public static void main(String[] args) {
 
         // Init a database instance and choose the binding (builtin)
-        //Reindexer db = Reindexer.newReindexer("builtin:///tmp/reindex/testdb");
+        //Reindex db = Reindex.newReindexer("builtin:///tmp/reindex/testdb");
 
         // OR - Init a database instance and choose the binding (connect to server)
         Reindexer db = Reindexer.newReindexer("cproto://127.0.0.1:6534/z");
 
         // OR - Init a database instance and choose the binding (connect to server by REST API)
-        //Reindexer db = Reindexer.newReindexer("http://localhost:9088/api/v1/db/z");
+        //Reindex db = Reindex.newReindexer("http://localhost:9088/api/v1/db/z");
 
         // OR - Init a database instance and choose the binding (builtin, with bundled server)
         //serverConfig := config.DefaultServerConfig()
-        //Reindexer db = Reindexer.newReindexer("builtinserver://testdb");
+        //Reindex db = Reindex.newReindexer("builtinserver://testdb");
 
         db.openNamespace("items", NamespaceOptions.defaultOptions(), Item.class);
 
@@ -31,12 +31,12 @@ public class Example {
         for (int i = 0; i < 5; i++) {
             db.upsert("items", new Item(
                     i,
-                    "Vasya",
+                    "Vasya"/*,
                     new HashSet<Integer>() {{
                         add(new Random().nextInt(100));
                         add(new Random().nextInt(100));
                     }},
-                    2000 + new Random().nextInt(50)
+                    2000 + new Random().nextInt(50)*/
             ));
             System.out.print("*");
         }
