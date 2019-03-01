@@ -3,6 +3,8 @@ package org.reindexer.examples;
 import org.reindexer.connector.Reindexer;
 import org.reindexer.connector.options.NamespaceOptions;
 import org.reindexer.examples.model.Item;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -10,6 +12,10 @@ import java.util.Random;
 public class Example {
 
     public static void main(String[] args) {
+
+        Logger LOGGER = LoggerFactory.getLogger(Example.class);
+        LOGGER.debug("Hello world.");
+
 
         // Init a database instance and choose the binding (builtin)
         //Reindex db = Reindex.newReindexer("builtin:///tmp/reindex/testdb");
@@ -24,14 +30,14 @@ public class Example {
         //serverConfig := config.DefaultServerConfig()
         //Reindex db = Reindex.newReindexer("builtinserver://testdb");
 
-        db.openNamespace("items", NamespaceOptions.defaultOptions(), Item.class);
+        db.openNamespace("items", NamespaceOptions.defaultOptions().setDropOnIndexesConflict(), Item.class);
 
 
         // Generate dataset
         for (int i = 0; i < 5; i++) {
             db.upsert("items", new Item(
                     i,
-                    "Vasya"/*,
+                    "Vasya" + i /*,
                     new HashSet<Integer>() {{
                         add(new Random().nextInt(100));
                         add(new Random().nextInt(100));
