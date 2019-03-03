@@ -3,6 +3,8 @@ package org.reindexer.examples;
 import org.reindexer.connector.Reindexer;
 import org.reindexer.connector.options.NamespaceOptions;
 import org.reindexer.examples.model.Item;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -11,32 +13,36 @@ public class Example {
 
     public static void main(String[] args) {
 
+        Logger LOGGER = LoggerFactory.getLogger(Example.class);
+        LOGGER.debug("Hello world.");
+
+
         // Init a database instance and choose the binding (builtin)
-        //Reindexer db = Reindexer.newReindexer("builtin:///tmp/reindex/testdb");
+        //Reindex db = Reindex.newReindexer("builtin:///tmp/reindex/testdb");
 
         // OR - Init a database instance and choose the binding (connect to server)
         Reindexer db = Reindexer.newReindexer("cproto://127.0.0.1:6534/z");
 
         // OR - Init a database instance and choose the binding (connect to server by REST API)
-        //Reindexer db = Reindexer.newReindexer("http://localhost:9088/api/v1/db/z");
+        //Reindex db = Reindex.newReindexer("http://localhost:9088/api/v1/db/z");
 
         // OR - Init a database instance and choose the binding (builtin, with bundled server)
         //serverConfig := config.DefaultServerConfig()
-        //Reindexer db = Reindexer.newReindexer("builtinserver://testdb");
+        //Reindex db = Reindex.newReindexer("builtinserver://testdb");
 
-        db.openNamespace("items", NamespaceOptions.defaultOptions(), Item.class);
+        db.openNamespace("items", NamespaceOptions.defaultOptions().setDropOnIndexesConflict(), Item.class);
 
 
         // Generate dataset
         for (int i = 0; i < 5; i++) {
             db.upsert("items", new Item(
                     i,
-                    "Vasya",
+                    "Vasya" + i /*,
                     new HashSet<Integer>() {{
                         add(new Random().nextInt(100));
                         add(new Random().nextInt(100));
                     }},
-                    2000 + new Random().nextInt(50)
+                    2000 + new Random().nextInt(50)*/
             ));
             System.out.print("*");
         }
