@@ -1,6 +1,7 @@
 package org.reindexer.examples;
 
 import org.reindexer.connector.Reindexer;
+import org.reindexer.connector.bindings.Consts;
 import org.reindexer.connector.options.NamespaceOptions;
 import org.reindexer.examples.model.Item;
 import org.slf4j.Logger;
@@ -46,18 +47,18 @@ public class Example {
             ));
             System.out.print("*");
         }
-/*
+
         // Query a single document
         {
-            Item item = db.Query("items").
-                    Where("id", reindexer.EQ, 40).
-                    Get();
+            Item item = db.query("items").
+                    where("id", 1 /*Reindexer.EQ*/, 5).
+                    get();
 
             if (item != null) {
                 System.out.println("Found document: " + item.toString());
             }
         }
-
+/*
         // Query multiple documents
         Query query = db.Query("items").Class(Item.class).
                 Sort("year", false).                          // Sort results by 'year' field in ascending order
